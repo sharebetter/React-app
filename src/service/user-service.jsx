@@ -13,7 +13,7 @@ class UserService{
     }
     errorTips (msg) {
         alert(msg);
-        console.log(msg);
+        // console.log(msg);
     }
 }
 

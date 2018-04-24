@@ -3,32 +3,43 @@ import React from 'react';
 class TableList extends React.Component {
     constructor (props) {
        super(props);
+       this.state = {
+        isFirstLoading: true
+       }
+    }
+    componentWillReceiveProps(){
+        // 列表只有在第一次挂载的时候，isFirstLoading为true，其他情况为false
+        if(this.props.children.length>0){
+            this.setState({
+                isFirstLoading : false
+            });
+        }
     }
     render () {
-        let infoList = this.props.list.map((ele,index)=>{
-            // console.log(ele,index)
-            return (<tr key={index}>
-                <th scope="row">{ele.id}</th>
-                <td>{ele.username}</td>
-                <td>{ele.email}</td>
-                <td>{ele.phone}</td>
-                <td>{new Date(ele.createTime).toLocaleString()}</td>
-            </tr>)
-        })
+        // 列表内容
+        let listBody = this.props.children;
+        // 列表的信息
+        let listInfo = (
+            <tr>
+                <td colSpan={this.props.thList.length} className="text-center">
+                    {this.state.isFirstLoading ? '正在加载数据...':'没有找到相应的结果~'}</td>
+            </tr>
+        );
+        let tableBody = listBody.length > 0 ? listBody : listInfo;
+
+        // console.log(this.props.thList)
         return (
             <div>
-                <table className="table table-striped table-hover">
+                <table className="table table-striped table-hover text-center table-bordered">
                     <thead>
                         <tr>
-                            <th>id</th>
-                            <th>用户名</th>
-                            <th>邮箱</th>
-                            <th>电话</th>
-                            <th>注册时间</th>
+                            {
+                                this.props.thList
+                            }
                         </tr>
                     </thead>
                     <tbody>
-                        {infoList}
+                        {tableBody}
                     </tbody>
                 </table>
             </div>

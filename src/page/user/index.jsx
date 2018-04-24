@@ -15,7 +15,7 @@ class UserList extends React.Component {
         this.state = {
             pageNum : 1,
             total:200,
-            list:[]
+            list:[],
         }
     }
     pageChange (pageNum) {
@@ -46,11 +46,31 @@ class UserList extends React.Component {
         this.loadUserList();
     }
     render () {
+        let thList = ['id','用户名','邮箱','电话','注册时间'];
+        let tb_thList = thList.map(
+            (ele,index)=>{
+                return  <th key={index}>{ele}</th>
+            }
+        )
+
         return (
             <div id="page-wrapper">
                <PageTitle title="用户列表" />
                <div className="col-md-12">
-                    <TableList list={this.state.list}></TableList>
+                    <TableList thList={tb_thList}>
+                        {
+                            this.state.list.map((ele,index)=>{
+                                // console.log(ele,index)
+                                return (<tr key={index}>
+                                    <th scope="row">{ele.id}</th>
+                                    <td>{ele.username}</td>
+                                    <td>{ele.email}</td>
+                                    <td>{ele.phone}</td>
+                                    <td>{new Date(ele.createTime).toLocaleString()}</td>
+                                </tr>)
+                            })
+                        }
+                    </TableList>
                </div>
                <Pagination current={this.state.pageNum} showQuickJumper total={this.state.total} onChange={this.pageChange.bind(this)}/>
             </div>
