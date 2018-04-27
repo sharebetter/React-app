@@ -15,7 +15,7 @@ class App extends React.Component{
                 <Switch>
                     <Route exact path="/" component={Home}/>
                     <Route path='/product' component={ProductRoute}/>
-                    <Route path='/product/product-category' component={Home}/>
+                    <Route path='/product-category' component={ProductRoute}/>
                     <Route path="/user/index" component={UserList} />
                     <Redirect from="/user" to="/user/index"/>
                     <Route component={ErrorPage} />

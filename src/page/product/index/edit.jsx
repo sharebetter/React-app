@@ -114,7 +114,7 @@ class ProductEdit extends React.Component {
                 // 路由跳转
                 this.props.history.push('/product/index');
             }, (errMsg) => {
-                _product.alertTips(errMsg);
+                _product.alertTips(errMsg.data);
             });
         }
         // 表单验证失败
