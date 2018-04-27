@@ -5,7 +5,7 @@ class formSearch extends React.Component{
         super(props);
         this.state = {
             selectType:'productId',
-            keywords:''
+            keywords:'',
         }
     }
     changeValue (e) {

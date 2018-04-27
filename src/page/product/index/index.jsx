@@ -21,6 +21,7 @@ class ProductList extends React.Component{
         }
     }
     loadProductList (pageNum = this.state.pageNum) {
+
         let params = {
             listType    : this.state.listType,
             keywords    : this.state.listData.keywords,
@@ -36,10 +37,11 @@ class ProductList extends React.Component{
                  for (let i in res.data.list[0]){
                      thList.push(i);
                  }
+                 thList.push('编辑');
                  this.setState({
                      thList,
-                     listType:'list',
-                     listData : ''
+                    //  listType:'list',
+                    //  listData : ''
                  })
             }
         })
@@ -101,7 +103,14 @@ class ProductList extends React.Component{
         })
         return (
             <div id="page-wrapper">
-                <PageTitle title="用户列表" />
+                <PageTitle title="商品列表" >
+                    <div className="page-header-right">
+                        <Link to="/product/edit" className="btn btn-primary">
+                            <i className="fa fa-plus"></i>
+                            <span>添加商品</span>
+                        </Link>
+                    </div>
+                </PageTitle>
                 <div className="col-md-12">
                    <FormSelect getSearchValue={this.doSearch.bind(this)}></FormSelect>
                    <TableList thList={tb_thList}>
@@ -120,7 +129,7 @@ class ProductList extends React.Component{
                                     </td>
                                     <td>{ele.imageHost}</td>
                                     <td>
-                                        <Link className="opera" to={`/product/detail/${ele.id}`}>商品详情</Link>
+                                        <Link className="opera" to={`/product/detail/${ele.id}`}>详情</Link>
                                         <Link className="opera" to={`/product/edit/${ele.id}`}>编辑</Link>
                                     </td>
                                 </tr>)
